@@ -24,10 +24,10 @@
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', 'XXXXXXXXXXXXXXXXX');
+        fbq('init', '1648181812851913');
         fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXXXX&ev=PageView&noscript=1"/></noscript>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1648181812851913&ev=PageView&noscript=1"/></noscript>
 
     <!-- intl-tel-input -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.5.3/css/intlTelInput.css"/>
@@ -765,7 +765,15 @@
                 fbq('track', 'Lead', { content_name: 'VSL Anketa + Bonus', content_category: 'Video Landing Form' });
             }
 
-            // TODO: fetch('YOUR_WEBHOOK', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+            // Google Sheets webhook
+            data.source = 'vsl_applications';
+            const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwYpBGv6Kga5FY27_FDFN6-nipT8-ZiXD-D0YuE5KGzQ_ATOKuG_jsWJBmYpITVDDCZVw/exec'; // ← вставити URL з Apps Script
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).catch(err => console.log('Webhook error:', err));
 
             setTimeout(() => {
                 formFields.classList.add('hidden');
